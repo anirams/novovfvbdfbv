@@ -1,0 +1,2 @@
+FLASK_APP=nestonovo.py
+FLASK_DEBUG=1
