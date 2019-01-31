@@ -1,0 +1,30 @@
+body {
+	background-image: url("../static/images/backgroundimg.jpg");
+	background-repeat: no-repeat;
+}
+
+.navbar-default {
+	background-color: #fff;
+	border-bottom: 3px solid #5d87ce;
+	
+}
+
+.navbar {
+	padding-top: 3px;
+	min-height: 63px;
+}
+
+.navbar-brand {
+	padding:0;
+}
+
+#hi {
+	float: right;
+	padding: 15px;
+}
+
+#jumbo {
+	margin-top: 15vw;
+	background-color: #fff;
+	opacity: 0.5;
+}

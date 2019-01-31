@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-md-2">
+
+    </div>
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-5" id="slikaIzleta">
+						<img src="{{ izlet.picture }}" style="max-height: 100px">	
+						<h1>{{ izlet.name }}</h1>
+						<p>{{ izlet.cost }}</p><br>
+	            	</div>
+	            	<div class="col-md-7">
+			            <p>{{ izlet.description }}</p><br>
+			            <p>{{ izlet.location }}</p><br>
+			            <p>{{ izlet.trasport }}</p><br>
+			            <p>{{ izlet.begin }}</p><br>
+			            <p>{{ izlet.end }}</p><br>
+	        		</div>
+	        		<span class="text-center">Objavljeno: {{ izlet.timestamp }}</span>
+	        	</div>
+	        </div>    	
+	    </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>

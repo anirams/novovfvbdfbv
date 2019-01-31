@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="width: 70%; margin: auto;">
+    <h1>Stvori novi izlet</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div  class="form-group">
+            {{ form.name.label }}<br>
+            {{ form.name(size=32, class_="form-control") }}<br>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.description.label }}<br>
+            {{ form.description(cols=50, rows=4, class_="form-control") }}<br>
+            {% for error in form.description.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.location.label }}<br>
+            {{ form.location(size=32, class_="form-control") }}<br>
+            {% for error in form.location.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.transport.label }}<br>
+            {{ form.transport(size=32, class_="form-control") }}<br>
+            {% for error in form.transport.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.begin.label }}<br>
+            {{ form.begin(size=32, class_="form-control") }}<br>
+            {% for error in form.begin.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.end.label }}<br>
+            {{ form.end(size=32, class_="form-control") }}<br>
+            {% for error in form.end.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.picture.label }}<br>
+            {{ form.picture(size=64, class_="form-control") }}<br>
+            {% for error in form.picture.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div  class="form-group">
+            {{ form.cost.label }}<br>
+            {{ form.cost(size=32, class_="form-control") }}<br>
+            {% for error in form.cost.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <p>{{ form.submit(class_="btn bt-default") }}</p>
+    </div>
+    </form>
+{% endblock %}

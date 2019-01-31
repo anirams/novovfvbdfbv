@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, TextAreaField, DecimalField, DateField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from myproject.models import User
 
@@ -28,6 +28,17 @@ class RegistrationForm(FlaskForm):
 			raise ValidationError('Please use a different email address.')
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    username = StringField('Username:', validators=[DataRequired()])
+    about_me = TextAreaField('About me: ', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
+
+class StvoriIzletForm(FlaskForm):
+	name = StringField('Naziv izleta:', validators=[DataRequired()])
+	description = TextAreaField('Opisite izlet:', validators=[DataRequired(), Length(min=20, max=240)])
+	location = StringField('Lokacija:')
+	transport = StringField('Vrsta transporta:')
+	begin = DateField('Pocetak', format='%Y-%m-%d', validators=[DataRequired()])
+	end = DateField('Kraj', format='%Y-%m-%d', validators=[DataRequired()])
+	picture = StringField('Ucitaj sliku')
+	cost = DecimalField('Cijena', places=2, rounding=None, use_locale=False, number_format=None, validators=[DataRequired()])
+	submit = SubmitField('Submit')
