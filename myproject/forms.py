@@ -42,3 +42,16 @@ class StvoriIzletForm(FlaskForm):
 	picture = StringField('Ucitaj sliku')
 	cost = DecimalField('Cijena', places=2, rounding=None, use_locale=False, number_format=None, validators=[DataRequired()])
 	submit = SubmitField('Submit')
+
+class EditIzletForm(FlaskForm):
+	description = TextAreaField('Opisite izlet:', validators=[DataRequired(), Length(min=20, max=240)])
+	location = StringField('Lokacija:')
+	transport = StringField('Vrsta transporta:')
+	begin = DateField('Pocetak', format='%Y-%m-%d', validators=[DataRequired()])
+	end = DateField('Kraj', format='%Y-%m-%d', validators=[DataRequired()])
+	picture = StringField('Ucitaj sliku')
+	cost = DecimalField('Cijena', places=2, rounding=None, use_locale=False, number_format=None, validators=[DataRequired()])
+	submit = SubmitField('Submit')
+
+class DeleteIzletForm(FlaskForm):
+	submit = SubmitField('DA')

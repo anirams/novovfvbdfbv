@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Jeste Li sigurni da zelite obrisati izlet?</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <button>{{ form.submit() }}</button>
+        <button><a href="{{ url_for('izlet', name=izlet.name) }}">NE</a></button>
+    </form>
+</div>   
+{% endblock %}

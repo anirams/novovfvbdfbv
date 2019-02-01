@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+        <div id="jumbo">
+            <div class="row">
+                <div class="col-md-4" id="slikaIzleta">
+                    <img src="{{ izlet.picture }}" style="max-height: 100px">   
+                        
+                </div>
+                <div class="col-md-6">
+                    <h1>{{ izlet.name }}</h1>
+                    <p>OPIS: {{ izlet.description }}</p><br>
+                    <p>LOKACIJA: {{ izlet.location }}</p><br>
+                    <p>VRSTA TRANSPORTA: {{ izlet.trasport }}</p><br>
+                </div>
+                <div class="col-md-2">
+                    <p>CIJENA: {{ izlet.cost }}</p><br>
+                    <p>POCETAK: {{ izlet.begin }}</p><br>
+                    <p>KRAJ: {{ izlet.end }}</p><br>
+                </div>
+                <span class="text-center">Kreirao: <a href="{{ url_for('user', username=izlet.author.username) }}">{{ izlet.author.username }}</a></span>
+                <span class="text-center">Objavljeno: {{ izlet.timestamp }}</span>
+                {% if current_user.id == izlet.author.id %}
+                <a href="{{ url_for('edit_izlet', name=izlet.name) }}">Uredi</a>
+                <a href="{{ url_for('delete_izlet', name=izlet.name) }}">Izbrisi</a>
+                {% endif %}
+                <a href="{{ url_for('explore') }}">Svi izleti</a>
+            </div>      
+        </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+{% endblock %}

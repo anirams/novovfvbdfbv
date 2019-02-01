@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for izlet in izleti %}
+		{% include '_izlet.html' %}
+	{% endfor %}
+{% endblock %}

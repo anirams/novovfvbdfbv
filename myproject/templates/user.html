@@ -13,8 +13,12 @@
 
                 <p><a href="{{ url_for('edit_profile') }}">Uredite svoj profil</a></p>
                 <p><a href="{{ url_for('stvori_izlet') }}">Novi izlet</a></p>
+
         </div>
     </div>
+        {% for izlet in izleti %}
+            {% include '_izlet.html' %}
+        {% endfor %}
     <hr>
 
 {% endblock %}

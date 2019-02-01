@@ -12,7 +12,10 @@ class User(UserMixin, db.Model):
 	password_hash = db.Column(db.String(128))
 	about_me = db.Column(db.String(140))
 	last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-	
+	izlet = db.relationship('Izlet', backref='author', lazy='dynamic') 
+	prij = db.relationship('Izlet', secondary=prijava,
+		primaryjoin=(prijava))
+
 	def __repr__(self):
 		return '<User {}>'.format(self.username)  
 
@@ -47,3 +50,7 @@ class Izlet(db.Model):
 	def __repr__(self):
 		return '<Izlet {}>'.format(self.body)
 
+prijava = db.Table('prijava',
+    db.Column('izlet_id', db.Integer, db.ForeignKey('izlet.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+)
