@@ -55,3 +55,9 @@ class EditIzletForm(FlaskForm):
 
 class DeleteIzletForm(FlaskForm):
 	submit = SubmitField('DA')
+
+class PrijavaNaIzletForm(FlaskForm):
+	submit1 = SubmitField('Prijava')
+	submit2 = SubmitField('Odjava')
+		
+

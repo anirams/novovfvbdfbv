@@ -1,8 +1,8 @@
 from flask import render_template, request, flash, redirect, url_for
 from myproject import app, db
-from myproject.forms import DeleteIzletForm, StvoriIzletForm, EditIzletForm, LoginForm, RegistrationForm, EditProfileForm
+from myproject.forms import PrijavaNaIzletForm, DeleteIzletForm, StvoriIzletForm, EditIzletForm, LoginForm, RegistrationForm, EditProfileForm
 from flask_login import current_user, login_user, logout_user, login_required
-from myproject.models import User, Izlet
+from myproject.models import User, Izlet, Prijava
 from werkzeug.urls import url_parse
 from datetime import datetime
 
@@ -103,11 +103,31 @@ def stvori_izlet():
 		return redirect(url_for('explore'))
 	return render_template('stvori_izlet.html', title='Novi Izlet', form=form)
 
-@app.route('/izlet/<name>')
+@app.route('/izlet/<name>', methods=['GET', 'POST'])
 @login_required
 def izlet(name):
 	izlet = Izlet.query.filter_by(name=name).first_or_404()
-	return render_template('izlet.html', title='Izlet', izlet=izlet)
+	prijava = Prijava.query.filter_by(izlet_id=izlet.id).all()
+	form = PrijavaNaIzletForm()
+	prijavabool = True
+	entry = Prijava.query.filter_by(user_id=current_user.id, izlet_id=izlet.id).first()
+	if entry:
+		prijavabool = False
+	if form.validate_on_submit():
+		if not prijavabool:
+			db.session.delete(entry)
+			db.session.commit()
+			flash('Odjavili ste se!')
+			prijavabool = True
+			return redirect(url_for('izlet', title='Izlet', prijavabool=prijavabool, prijava=prijava, form=form, name=izlet.name, izlet=izlet))
+		else:
+			prijava = Prijava(user_id=current_user.id, izlet_id=izlet.id)
+			db.session.add(prijava)
+			db.session.commit()
+			flash('Prijavili ste se na {}', 'izlet.name')
+			prijavabool = False
+			return redirect(url_for('izlet', title='Izlet', prijavabool=prijavabool, prijava=prijava, form=form, name=izlet.name, izlet=izlet))
+	return render_template('izlet.html', title='Izlet', prijavabool=prijavabool, prijava=prijava, form=form, name=izlet.name, izlet=izlet)
 
 @app.route('/edit_izlet/<name>', methods=['GET', 'POST'])
 @login_required
@@ -146,3 +166,15 @@ def delete_izlet(name):
 		flash('Izbrisali ste izlet!')
 		return redirect(url_for('explore'))
 	return render_template('delete_izlet.html', title='naslov', form=form, name=izlet.name, izlet=izlet)
+
+#@app.route('/izlet/<name>/prijava', methods=['GET', 'POST'])
+#def prijava(name):	
+#	form = PrijavaNaIzletForm()
+#	izlet = Izlet.query.filter_by(name=name).first_or_404
+#	if form.validate_on_submit():
+#		prijava = Prijava(user_id=current_user.id, izlet_id=izlet.id)
+#		db.session.add(prijava)
+#		db.session.commit()
+#		flash('Prijavili ste se na {}', izlet.name)
+#		return redirect(url_for('izlet'))
+#	return render_template('/izlet/<name>/prijava.html', title='Prijava', form=form, name=izlet.name, izlet=izlet)

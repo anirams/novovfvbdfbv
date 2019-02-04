@@ -13,8 +13,7 @@ class User(UserMixin, db.Model):
 	about_me = db.Column(db.String(140))
 	last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 	izlet = db.relationship('Izlet', backref='author', lazy='dynamic') 
-	prij = db.relationship('Izlet', secondary=prijava,
-		primaryjoin=(prijava))
+	prijava = db.relationship('Prijava', backref='user', lazy='dynamic')
 
 	def __repr__(self):
 		return '<User {}>'.format(self.username)  
@@ -46,11 +45,15 @@ class Izlet(db.Model):
 	picture = db.Column(db.String(200))
 	cost = db.Column(db.Numeric)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	prijava = db.relationship('Prijava', backref='izlet', lazy='dynamic')
 
 	def __repr__(self):
-		return '<Izlet {}>'.format(self.body)
+		return '<Izlet {}>'.format(self.name)
 
-prijava = db.Table('prijava',
-    db.Column('izlet_id', db.Integer, db.ForeignKey('izlet.id')),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
-)
+class Prijava(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	izlet_id = db.Column(db.Integer, db.ForeignKey('izlet.id'))
+
+	def __repr__(self):
+		return '<Prijava {} {}>'.format(self.user.username, self.izlet.name)

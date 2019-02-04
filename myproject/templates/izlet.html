@@ -29,8 +29,22 @@
                 <a href="{{ url_for('edit_izlet', name=izlet.name) }}">Uredi</a>
                 <a href="{{ url_for('delete_izlet', name=izlet.name) }}">Izbrisi</a>
                 {% endif %}
-                <a href="{{ url_for('explore') }}">Svi izleti</a>
-            </div>      
+                <a href="{{ url_for('explore') }}">Svi izleti</a><br>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    {% if prijavabool == True %}
+                    <p>{{ form.submit1(class_="btn bt-default") }}</p>
+                    {% elif prijavabool == False %}
+                    <p>{{ form.submit2(class_="btn bt-default") }}</p>
+                    {% endif %}
+            </div> 
+            <div>
+                <h1>Prijavljeni useri:</h1>
+                {% for p in prijava %}
+                <img src="{{ p.user.avatar(50) }}" style="display: inline;">
+                    <p>{{p.user.username}}</p><br>
+                {% endfor %} 
+            </div>    
         </div>
     </div>
     <div class="col-md-2">
